@@ -1,5 +1,5 @@
 {
-    "name": "imsglobal/lti-1p3-tool",
+    "name": "beecrowd/lti-1p3-tool",
     "type": "library",
     "require": {
         "fproject/php-jwt": "^4.0",
@@ -11,6 +11,10 @@
         }
     },
     "authors": [
+        {
+            "name": "beecrowd",
+            "email": "contato@beecrowd.com.br"
+        },
         {
             "name": "Martin Lenord",
             "email": "ims.m@rtin.dev"
