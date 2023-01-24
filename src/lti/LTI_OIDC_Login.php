@@ -1,7 +1,9 @@
 <?php
+
 namespace IMSGlobal\LTI;
 
-class LTI_OIDC_Login {
+class LTI_OIDC_Login
+{
 
     private $db;
     private $cache;
@@ -14,7 +16,8 @@ class LTI_OIDC_Login {
      * @param Cache     $cache      Instance of the Cache interface used to loading and storing launches. If non is provided launch data will be store in $_SESSION.
      * @param Cookie    $cookie     Instance of the Cookie interface used to set and read cookies. Will default to using $_COOKIE and setcookie.
      */
-    function __construct(Database $database, Cache $cache = null, Cookie $cookie = null) {
+    function __construct(Database $database, Cache $cache = null, Cookie $cookie = null)
+    {
         $this->db = $database;
         if ($cache === null) {
             $cache = new Cache();
@@ -30,7 +33,8 @@ class LTI_OIDC_Login {
     /**
      * Static function to allow for method chaining without having to assign to a variable first.
      */
-    public static function new(Database $database, Cache $cache = null, Cookie $cookie = null) {
+    public static function new(Database $database, Cache $cache = null, Cookie $cookie = null)
+    {
         return new LTI_OIDC_Login($database, $cache, $cookie);
     }
 
@@ -42,7 +46,8 @@ class LTI_OIDC_Login {
      *
      * @return Redirect Returns a redirect object containing the fully formed OIDC login URL.
      */
-    public function do_oidc_login_redirect($launch_url, array $request = null) {
+    public function do_oidc_login_redirect($launch_url, array $request = null)
+    {
 
         if ($request === null) {
             $request = $_REQUEST;
@@ -91,10 +96,10 @@ class LTI_OIDC_Login {
 
         // Return auth redirect.
         return new Redirect($auth_login_return_url, http_build_query($request));
-
     }
 
-    protected function validate_oidc_login($request) {
+    protected function validate_oidc_login($request)
+    {
 
         // Validate Issuer.
         if (empty($request['iss'])) {
@@ -107,7 +112,7 @@ class LTI_OIDC_Login {
         }
 
         // Fetch Registration Details.
-        $registration = $this->db->find_registration_by_issuer($request['iss']);
+        $registration = $this->db->find_registration_by_issuer($request['iss'], $request['client_id']);
 
         // Check we got something.
         if (empty($registration)) {
