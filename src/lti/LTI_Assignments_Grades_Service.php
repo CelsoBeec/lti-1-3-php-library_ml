@@ -25,6 +25,7 @@ class LTI_Assignments_Grades_Service {
             $lineitem = LTI_Lineitem::new()
                 ->set_label($lineitemSettings['label'])
                 ->set_tag($lineitemSettings['tag'])
+                ->set_resource_id($lineitemSettings['resource_id'])
                 ->set_score_maximum(100);
             $lineitem = $this->find_or_create_lineitem($lineitem);
             $score_url = $lineitem->get_id();
